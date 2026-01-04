@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1044601048864",
+    "project_id": "digital-library-3e83d",
+    "storage_bucket": "digital-library-3e83d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044601048864:android:49de70d564977bea03d145",
+        "android_client_info": {
+          "package_name": "org.deafop.digital_library"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbeKBFQqDAYA8dOozlGVMtFJR0O8Qj3d8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
