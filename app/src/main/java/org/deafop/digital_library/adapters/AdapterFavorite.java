@@ -72,7 +72,7 @@ public class AdapterFavorite extends RecyclerView.Adapter<RecyclerView.ViewHolde
             video_title = v.findViewById(R.id.video_title);
             video_duration = v.findViewById(R.id.video_duration);
             date_time = v.findViewById(R.id.date_time);
-            total_views = v.findViewById(R.id.total_views);
+       //     total_views = v.findViewById(R.id.total_views);
             lyt_view = v.findViewById(R.id.lyt_view_count);
             lyt_date = v.findViewById(R.id.lyt_date);
             video_thumbnail = v.findViewById(R.id.video_thumbnail);
@@ -110,7 +110,7 @@ public class AdapterFavorite extends RecyclerView.Adapter<RecyclerView.ViewHolde
         vItem.video_duration.setText(p.video_duration);
 
         if (AppConfig.ENABLE_VIEW_COUNT) {
-            vItem.total_views.setText(Tools.withSuffix(p.total_views) + " " + context.getResources().getString(R.string.views_count));
+           // vItem.total_views.setText(Tools.withSuffix(p.total_views) + " " + context.getResources().getString(R.string.views_count));
         } else {
             vItem.lyt_view.setVisibility(View.GONE);
         }

@@ -19,7 +19,6 @@ import org.deafop.digital_library.R;
 import org.deafop.digital_library.adapters.AdapterFilms;
 import org.deafop.digital_library.databases.DatabaseHandlerFavorite;
 import org.deafop.digital_library.models.Films;
-import org.deafop.digital_library.models.FilmsData;
 import org.deafop.digital_library.utils.SharedPref;
 
 import java.util.ArrayList;
@@ -59,12 +58,12 @@ public class FragmentFavorite extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        data = new ArrayList<>();
+        /*data = new ArrayList<>();
         for (int i = 0; i < FilmsData.nameArray.length; i++) {
             data.add(new Films(FilmsData.nameArray[i], FilmsData.id_[i], FilmsData.drawableArray[i]));
         }
         AdapterFilms adapterFilms1 = new AdapterFilms(data);
-        recyclerView.setAdapter(adapterFilms1);
+        recyclerView.setAdapter(adapterFilms1);*/
         return root_view;
     }
 

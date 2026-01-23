@@ -4,24 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.deafop.digital_library.R;
-import org.deafop.digital_library.config.AppConfig;
+import org.deafop.digital_library.fragments.AcademicLearningFragment;
 import org.deafop.digital_library.fragments.FragmentCategory;
 import org.deafop.digital_library.fragments.FragmentRecent;
 import org.deafop.digital_library.fragments.FragmentSettings;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import org.deafop.digital_library.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,8 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private MaterialToolbar toolbar;
     private MenuItem sortItem;
     private MainPagerAdapter adapter;
+    private FrameLayout fragmentContainer;
+    private FrameLayout contentFrame;
 
     private final int pagerCount = 3;
+    private boolean isInNestedNavigation = false;
+    private String currentSubjectTitle = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +47,17 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        fragmentContainer = findViewById(R.id.fragment_container);
+        contentFrame = findViewById(R.id.content_frame);
+
         viewPager = findViewById(R.id.viewpager);
         navigation = findViewById(R.id.navigation);
 
         setupViewPager();
         setupBottomNavigation();
+
+        // Initially hide back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     private void setupViewPager() {
@@ -57,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                if (isInNestedNavigation) {
+                    exitNestedNavigation();
+                }
 
                 navigation.getMenu().getItem(position).setChecked(true);
 
@@ -82,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupBottomNavigation() {
         navigation.setOnNavigationItemSelectedListener(item -> {
+            if (isInNestedNavigation) {
+                exitNestedNavigation();
+            }
+
             if (item.getItemId() == R.id.navigation_category) {
                 viewPager.setCurrentItem(0);
                 return true;
@@ -96,6 +114,69 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Method to navigate to a nested fragment
+    public void navigateToSubjectFragment(Fragment fragment, String subjectName) {
+        isInNestedNavigation = true;
+        currentSubjectTitle = subjectName;
+
+        // Hide ViewPager and show fragment container
+        viewPager.setVisibility(View.GONE);
+        fragmentContainer.setVisibility(View.VISIBLE);
+
+        // Hide bottom navigation
+        navigation.setVisibility(View.GONE);
+
+        // Update toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(subjectName);
+
+        // Set custom back navigation icon
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+        // Clear any existing fragments
+        FragmentManager fm = getSupportFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); i++) {
+            fm.popBackStack();
+        }
+
+        // Add fragment
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment, "SubjectFragment")
+                .addToBackStack(null)
+                .commit();
+    }
+
+    // Method to exit nested navigation
+    public void exitNestedNavigation() {
+        isInNestedNavigation = false;
+        currentSubjectTitle = "";
+
+        // Show ViewPager and hide fragment container
+        viewPager.setVisibility(View.VISIBLE);
+        fragmentContainer.setVisibility(View.GONE);
+
+        // Show bottom navigation
+        navigation.setVisibility(View.VISIBLE);
+
+        // Update toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle(R.string.title_nav_category);
+
+        // Reset navigation icon
+        toolbar.setNavigationIcon(R.drawable.ic_dots);
+        toolbar.setNavigationOnClickListener(null);
+
+        // Clear fragment container
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag("SubjectFragment");
+        if (fragment != null) {
+            fm.beginTransaction().remove(fragment).commit();
+        }
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -106,6 +187,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle toolbar back button
+        if (item.getItemId() == android.R.id.home) {
+            if (isInNestedNavigation) {
+                exitNestedNavigation();
+                return true;
+            }
+        }
 
         if (item.getItemId() == R.id.action_search) {
             startActivity(new Intent(this, ActivitySearch.class));
@@ -129,12 +217,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // ADD BACK THE selectCategory METHOD
     public void selectCategory() {
+        if (isInNestedNavigation) {
+            exitNestedNavigation();
+        }
         viewPager.setCurrentItem(0);
     }
 
-    // ---------------- ADAPTER ----------------
+    @Override
+    public void onBackPressed() {
+        if (isInNestedNavigation) {
+            exitNestedNavigation();
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
+    // ---------------- ADAPTER ----------------
     class MainPagerAdapter extends FragmentPagerAdapter {
 
         MainPagerAdapter(FragmentManager fm) {
@@ -145,11 +247,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: return new FragmentCategory();
-                case 1: return new FragmentRecent();
+                case 0: return new HomeFragment();
+                //case 0: return new AcademicLearningFragment();
+                case 1: return new FragmentCategory();
                 case 2: return new FragmentSettings();
             }
-            return new FragmentCategory();
+            return new AcademicLearningFragment();
         }
 
         @Override
@@ -157,13 +260,11 @@ public class MainActivity extends AppCompatActivity {
             return 3;
         }
     }
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
+    // In MainActivity.java, add this method:
+    public void navigateToAcademicLearning() {
+        if (isInNestedNavigation) {
+            exitNestedNavigation();
         }
+        viewPager.setCurrentItem(0); // AcademicLearningFragment position
     }
-
 }

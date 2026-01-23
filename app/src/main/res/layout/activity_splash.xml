@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parent_view"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
+    <!-- Fullscreen Splash Image -->
     <ImageView
         android:id="@+id/img_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg_splash_default" />
+        android:src="@drawable/bg_splash"
+        android:contentDescription="@string/app_name" />
 
+
+
+    <!-- Floating Logo Image -->
+    <ImageView
+        android:id="@+id/img_floating_logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="-120dp"
+        android:layout_marginEnd="-120dp"
+        android:src="@drawable/ic_volleyball"
+        android:visibility="invisible" />
+
+    <!-- Progress Bar -->
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="36dp"
-        android:indeterminate="false"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="80dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorWhite"
         android:visibility="visible" />
 
-</RelativeLayout>
+</FrameLayout>

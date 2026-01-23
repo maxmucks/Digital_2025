@@ -68,7 +68,7 @@ public class AdapterSuggested extends RecyclerView.Adapter<RecyclerView.ViewHold
         public TextView category_name;
         public TextView video_title;
         public TextView video_duration;
-        public TextView total_views;
+        //public TextView total_views;
         public TextView date_time;
         public LinearLayout lyt_view;
         public LinearLayout lyt_date;
@@ -82,7 +82,7 @@ public class AdapterSuggested extends RecyclerView.Adapter<RecyclerView.ViewHold
             video_title = v.findViewById(R.id.video_title);
             video_duration = v.findViewById(R.id.video_duration);
             date_time = v.findViewById(R.id.date_time);
-            total_views = v.findViewById(R.id.total_views);
+            //total_views = v.findViewById(R.id.total_views);
             lyt_view = v.findViewById(R.id.lyt_view_count);
             lyt_date = v.findViewById(R.id.lyt_date);
             video_thumbnail = v.findViewById(R.id.video_thumbnail);
@@ -125,11 +125,11 @@ public class AdapterSuggested extends RecyclerView.Adapter<RecyclerView.ViewHold
             vItem.category_name.setText(p.category_name);
             vItem.video_title.setText(p.video_title);
             vItem.video_duration.setText(p.video_duration);
-            if (AppConfig.ENABLE_VIEW_COUNT) {
-                vItem.total_views.setText(Tools.withSuffix(p.total_views) + " " + context.getResources().getString(R.string.views_count));
-            } else {
-                vItem.lyt_view.setVisibility(View.GONE);
-            }
+//            if (AppConfig.ENABLE_VIEW_COUNT) {
+//                vItem.total_views.setText(Tools.withSuffix(p.total_views) + " " + context.getResources().getString(R.string.views_count));
+//            } else {
+//                vItem.lyt_view.setVisibility(View.GONE);
+//            }
 
             if (AppConfig.ENABLE_DATE_DISPLAY && AppConfig.DISPLAY_DATE_AS_TIME_AGO) {
                 PrettyTime prettyTime = new PrettyTime();

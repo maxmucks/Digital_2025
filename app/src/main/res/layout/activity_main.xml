@@ -26,13 +26,28 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- CONTENT -->
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+    <!-- MAIN CONTENT AREA -->
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="56dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- VIEWPAGER FOR BOTTOM NAV TABS -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="56dp"/>
+
+        <!-- FRAGMENT CONTAINER FOR NESTED NAVIGATION -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+    </FrameLayout>
 
     <!-- BOTTOM NAV -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -45,11 +60,5 @@
         app:itemTextColor="@color/colorWhite"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation"/>
-
-    <FrameLayout
-        android:id="@+id/main_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

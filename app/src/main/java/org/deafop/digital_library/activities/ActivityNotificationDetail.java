@@ -61,7 +61,7 @@ public class ActivityNotificationDetail extends AppCompatActivity {
 
     private Call<CallbackVideoDetail> callbackCall = null;
     private LinearLayout lyt_main_content;
-    TextView txt_title, txt_category, txt_duration, txt_total_views, txt_date_time;
+    TextView txt_title, txt_category, txt_duration, txt_date_time;
     LinearLayout lyt_view, lyt_date;
     ImageView video_thumbnail;
     private WebView video_description;
@@ -104,7 +104,7 @@ public class ActivityNotificationDetail extends AppCompatActivity {
         txt_category = findViewById(R.id.category_name);
         txt_duration = findViewById(R.id.video_duration);
         video_description = findViewById(R.id.video_description);
-        txt_total_views = findViewById(R.id.total_views);
+        //txt_total_views = findViewById(R.id.total_views);
         txt_date_time = findViewById(R.id.date_time);
         lyt_view = findViewById(R.id.lyt_view_count);
         lyt_date = findViewById(R.id.lyt_date);
@@ -202,11 +202,11 @@ public class ActivityNotificationDetail extends AppCompatActivity {
         txt_category.setText(post.category_name);
         txt_duration.setText(post.video_duration);
 
-        if (AppConfig.ENABLE_VIEW_COUNT) {
+        /*if (AppConfig.ENABLE_VIEW_COUNT) {
             txt_total_views.setText(Tools.withSuffix(post.total_views) + " " + getResources().getString(R.string.views_count));
         } else {
             lyt_view.setVisibility(View.GONE);
-        }
+        }*/
 
         if (AppConfig.ENABLE_DATE_DISPLAY && AppConfig.DISPLAY_DATE_AS_TIME_AGO) {
             PrettyTime prettyTime = new PrettyTime();
@@ -348,16 +348,9 @@ public class ActivityNotificationDetail extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setTitle("");
         }
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    public void addToFavorite(Video post) {
+    public void addToFavorite(final Video post) {
 
         List<Video> data = databaseHandler.getFavRow(str_vid);
         if (data.size() == 0) {
@@ -371,25 +364,12 @@ public class ActivityNotificationDetail extends AppCompatActivity {
         image_favorite.setOnClickListener(view -> {
             List<Video> data1 = databaseHandler.getFavRow(str_vid);
             if (data1.size() == 0) {
-                databaseHandler.AddtoFavorite(new Video(
-                        post.category_name,
-                        post.vid,
-                        post.video_title,
-                        post.video_url,
-                        post.video_id,
-                        post.video_thumbnail,
-                        post.video_duration,
-                        post.video_description,
-                        post.video_type,
-                        post.total_views,
-                        post.date_time
-                ));
+                databaseHandler.AddtoFavorite(new Video(post.cat_id, post.vid, post.video_title, post.video_url, post.video_id, post.video_thumbnail, post.video_duration, post.video_description, post.video_type, post.total_views, post.date_time));
                 Snackbar.make(parent_view, R.string.favorite_added, Snackbar.LENGTH_SHORT).show();
                 image_favorite.setImageResource(R.drawable.ic_fav);
-
             } else {
                 if (data1.get(0).getVid().equals(str_vid)) {
-                    databaseHandler.RemoveFav(new Video(str_vid));
+                    databaseHandler.RemoveFav(new Video(post.vid));
                     Snackbar.make(parent_view, R.string.favorite_removed, Snackbar.LENGTH_SHORT).show();
                     image_favorite.setImageResource(R.drawable.ic_fav_outline);
                 }
@@ -398,23 +378,12 @@ public class ActivityNotificationDetail extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() == android.R.id.home) {
-            onBackPressed();
-        } else {
-            return super.onOptionsItemSelected(menuItem);
-        }
-        return true;
-    }
-
     private void loadViewed() {
         new MyTask().execute(sharedPref.getApiUrl() + "/api/get_total_views/?id=" + str_vid);
     }
 
-    @SuppressWarnings("deprecation")
-    private static class MyTask extends AsyncTask<String, Void, String> {
-
+    @SuppressLint("StaticFieldLeak")
+    private class MyTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -428,42 +397,41 @@ public class ActivityNotificationDetail extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             if (null == result || result.length() == 0) {
-                Log.d("TAG", "no data found!");
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
             } else {
-
                 try {
-
                     JSONObject mainJson = new JSONObject(result);
                     JSONArray jsonArray = mainJson.getJSONArray("result");
+                    JSONObject objJson = null;
                     for (int i = 0; i < jsonArray.length(); i++) {
+                        objJson = jsonArray.getJSONObject(i);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-
         }
-    }
-
-    public void onDestroy() {
-        if (!(callbackCall == null || callbackCall.isCanceled())) {
-            this.callbackCall.cancel();
-        }
-        lyt_shimmer.stopShimmer();
-        super.onDestroy();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
 }

@@ -17,7 +17,7 @@ public class CustomWebChromeClient extends WebChromeClient {
 
     public CustomWebChromeClient(Activity activity) {
         this.activity = activity;
-        this.fullscreenContainer = activity.findViewById(R.id.fullscreenContainer);
+      //  this.fullscreenContainer = activity.findViewById(R.id.fullscreenContainer);
     }
 
     @Override

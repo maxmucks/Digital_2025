@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_background">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@android:color/white" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout_category"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorBlack"
+                    android:lineSpacingExtra="4dp" />
+
+                <!-- Shimmer Loading Layouts -->
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_view_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Shimmer for List View -->
+                        <include
+                            android:id="@+id/lyt_shimmer_category_list"
+                            layout="@layout/include_shimmer_category_list" />
+
+                        <!-- Shimmer for Grid 2 Column -->
+                        <include
+                            android:id="@+id/lyt_shimmer_category_grid2"
+                            layout="@layout/include_shimmer_category_grid2"
+                            android:visibility="gone" />
+
+                        <!-- Shimmer for Grid 3 Column -->
+                        <include
+                            android:id="@+id/lyt_shimmer_category_grid3"
+                            layout="@layout/include_shimmer_category_grid3"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <!-- Error/No Connection View -->
+                <LinearLayout
+                    android:id="@+id/lyt_failed_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_error"
+                        app:tint="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/failed_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:text="@string/no_internet_text"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/failed_retry"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/retry" />
+
+                </LinearLayout>
+
+                <!-- No Items Found View -->
+                <LinearLayout
+                    android:id="@+id/lyt_no_item_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/no_item_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/no_category_found"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <!-- Main Content - RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cards"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingTop="8dp" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

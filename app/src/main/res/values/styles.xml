@@ -4,7 +4,7 @@
 
     <style name="AppDarkTheme" parent="BaseDarkTheme" />
 
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -13,7 +13,7 @@
         <item name="android:fontFamily">@font/custom_font</item>
     </style>
 
-    <style name="BaseDarkTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="BaseDarkTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -39,5 +39,80 @@
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- ExoPlayer Media Button Styles -->
+    <style name="ExoMediaButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:tint">@android:color/white</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="ExoMediaButton.PlayPause">
+        <item name="android:src">@drawable/ic_play</item>
+    </style>
+
+    <style name="ExoMediaButton.Rewind">
+        <item name="android:src">@drawable/ic_rewind</item>
+    </style>
+
+    <style name="ExoMediaButton.FastForward">
+        <item name="android:src">@drawable/ic_fast_forward</item>
+    </style>
+
+    <style name="ExoMediaButton.Previous">
+        <item name="android:src">@drawable/ic_skip_previous</item>
+    </style>
+
+    <style name="ExoMediaButton.Next">
+        <item name="android:src">@drawable/ic_skip_next</item>
+    </style>
+
+    <style name="ExoMediaButton.Repeat">
+        <item name="android:src">@drawable/ic_repeat</item>
+    </style>
+
+    <style name="ExoMediaButton.Shuffle">
+        <item name="android:src">@drawable/ic_shuffle</item>
+    </style>  <!-- Custom Progress Bar Style -->
+    <style name="VideoProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:minHeight">4dp</item>
+        <item name="android:maxHeight">4dp</item>
+        <item name="android:progressDrawable">@drawable/progress_bar_video</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_video</item>
+    </style>
+
+    <!-- Fullscreen Activity Theme -->
+    <style name="FullscreenTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/colorBlack</item>
+    </style>
+
+    <!-- Toolbar Style -->
+    <style name="VideoPlayerToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="subtitleTextColor">@android:color/white</item>
+        <item name="navigationIcon">@drawable/ic_back</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+    <!-- Error Dialog Style -->
+    <style name="ErrorDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme.AppCompat.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Set splash screen background -->
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
 </resources>

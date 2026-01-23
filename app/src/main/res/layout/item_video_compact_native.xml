@@ -108,12 +108,14 @@
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
+<!--
                                 <TextView
                                     android:id="@+id/total_views"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="854 views"
-                                    android:textSize="@dimen/text_sub_title_size" />
+                                    android:textSize="@dimen/text_sub_title_size" />-->
+
 
                             </LinearLayout>
 

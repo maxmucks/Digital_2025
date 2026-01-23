@@ -1,17 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBlack">
 
-    <WebView
-        android:id="@+id/youtube_view"
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="@drawable/ic_back" />
 
+    <!-- Main Content Area -->
     <FrameLayout
-        android:id="@+id/fullscreenContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-</FrameLayout>
+        <!-- WebView for YouTube -->
+        <WebView
+            android:id="@+id/youtube_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBlack" />
+
+        <!-- Loading Indicator -->
+        <LinearLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminateTint="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Loading video..."
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Error Layout -->
+        <LinearLayout
+            android:id="@+id/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_error"
+                app:tint="@color/colorError" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Error Loading Video"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retry_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Retry"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/open_in_browser_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Open in YouTube App"
+                app:backgroundTint="@color/colorPrimary"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Close"
+                style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

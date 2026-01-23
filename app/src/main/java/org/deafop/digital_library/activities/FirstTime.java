@@ -11,7 +11,7 @@ public class FirstTime extends AppCompatActivity {
         super.onCreate(bundle);
         if (getSharedPreferences("PREFERENCE", 0).getBoolean("isFirstRun", true)) {
             launchMainScreen();
-            Toast.makeText(this, "First Run", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "First Run", Toast.LENGTH_LONG).show();
             finish();
         } else {
             launchMainScreen();

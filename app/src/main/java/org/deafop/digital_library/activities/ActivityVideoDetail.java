@@ -104,7 +104,7 @@ public class ActivityVideoDetail extends AppCompatActivity {
         txt_category = findViewById(R.id.category_name);
         txt_duration = findViewById(R.id.video_duration);
         video_description = findViewById(R.id.video_description);
-        txt_total_views = findViewById(R.id.total_views);
+      //  txt_total_views = findViewById(R.id.total_views);
         txt_date_time = findViewById(R.id.date_time);
         lyt_view = findViewById(R.id.lyt_view_count);
         lyt_date = findViewById(R.id.lyt_date);
@@ -198,7 +198,7 @@ public class ActivityVideoDetail extends AppCompatActivity {
         txt_duration.setText(post.video_duration);
 
         if (AppConfig.ENABLE_VIEW_COUNT) {
-            txt_total_views.setText(Tools.withSuffix(post.total_views) + " " + getResources().getString(R.string.views_count));
+         //   txt_total_views.setText(Tools.withSuffix(post.total_views) + " " + getResources().getString(R.string.views_count));
         } else {
             lyt_view.setVisibility(View.GONE);
         }

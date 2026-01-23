@@ -65,14 +65,14 @@ public class FragmentCategory extends Fragment {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
         recyclerView = root_view.findViewById(R.id.recyclerViewCategory);
-        recyclerView.setHasFixedSize(true);
+       // recyclerView.setHasFixedSize(true);
 
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getActivity(), R.dimen.item_offset);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.addItemDecoration(itemDecoration);
 
-        recyclerView.setHasFixedSize(true);
+       // recyclerView.setHasFixedSize(true);
 
         //set data and list adapter
         adapterCategory = new AdapterCategory(getActivity(), new ArrayList<>());

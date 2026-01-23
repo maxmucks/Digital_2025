@@ -6,7 +6,6 @@
 
     <!--bottom navigation title-->
     <string name="title_nav_category">Home</string>
-    <string name="title_nav_favorite">Movies</string>
     <string name="title_nav_home">Other Work</string>
     <string name="title_nav_settings">Settings</string>
 
@@ -64,33 +63,22 @@
     <string name="dialog_ok">OK</string>
 
     <!--others-->
-    <string name="share_text">I Would like to share this app with you. Here You Can Download This Application from PlayStore</string>
     <string name="video_count_text">%d Videos</string>
-    <string name="views_count">views</string>
     <string name="btn_retry">Retry</string>
     <string name="search">Search</string>
     <string name="search_text">Search&#8230;</string>
     <string name="txt_suggested">Suggested</string>
-    <string name="press_again_to_exit">Press again to exit app</string>
 
     <string name="btn_clear">Clear</string>
 
-    <string name="country">Country</string>
-    <string name="title_nav_referal">Referral Centers</string>
     <string name="no_refferal_found">Coming Soon</string>
-    <string name="pdf">PDF</string>
-    <string name="sort">Sort</string>
-    <string name="todo">TODO</string>
-    <string name="chat">Chat With Us</string>
     <string name="favorrte">Favorite</string>
     <string name="share">Share</string>
-    <string name="player">player</string>
     <string name="overflow">Overflow</string>
     <string name="category">Category</string>
     <string name="title">Title</string>
-    <string name="more">More</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="retry">Retry</string>
+    <string name="no_data_found">No Data Found</string>
 
 
 </resources>

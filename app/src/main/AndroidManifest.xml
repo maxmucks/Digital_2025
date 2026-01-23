@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".activities.MyApplication"
@@ -20,6 +21,21 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.CseLearningActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LanguageCommunicationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LifeEmployabilityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AcademicLearningActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ActivityCards"
+            android:exported="true" />
+        <activity
             android:name=".activities.SubjectActivity"
             android:exported="false" />
         <activity
@@ -30,11 +46,11 @@
             android:exported="false" />
         <activity
             android:name=".activities.MainList"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activities.ActivitySplash"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
